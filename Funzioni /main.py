@@ -60,12 +60,6 @@ def raccogli_risposta() -> str:
     return input("Inserisci la tua scelta: ")
 
 
-def leggi_file() -> None:
-    with open("domanda-1.txt", "r") as file:
-        content = file.read()
-    print (content) 
-
-
 def main():
     is_risposta_corretta: bool = False
     while True:
