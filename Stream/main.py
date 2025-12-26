@@ -40,16 +40,17 @@ def valida_scelta(scelta: str) -> bool:
 """
 Questa funzione restituisce la domanda e le opzioni della risposta
 """
-def mostra_domanda() -> None:
-    print(
-"""
-Domanda?
-A
-B
-C
-D
-"""
-)
+def mostra_domanda(domanda: str) -> None:
+    print(domanda)
+#     print(
+# """
+# Domanda?
+# A
+# B
+# C
+# D
+# """
+# )
 
 
 
@@ -93,11 +94,11 @@ def main():
     index: int = estrai_index(content)
     domanda: str = estrai_domanda(content, index)
     risposte: str = estrai_risposte(content, index)
-
-    """is_risposta_corretta: bool = False
+    
+    is_risposta_corretta: bool = False
     while True:
-        mostra_domanda()
-        risposta_da_validare: str = valida_scelta()
+        mostra_domanda(domanda)
+        risposta_da_validare: str = raccogli_risposta()
         risposta_validarta: bool = valida_scelta(risposta_da_validare)
         feedback: str = ""
 
