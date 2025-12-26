@@ -10,8 +10,8 @@ def mostra_feedback(messaggio: str) -> None:
 {simbol}
 """)
 
-def is_risposta_esatta(scelta: str) -> bool:
-    if scelta.upper() == "A":
+def is_risposta_esatta(scelta: str, risposta_esatta: str) -> bool:
+    if scelta.upper() == risposta_esatta:
         return True
     else:
         return False
@@ -86,24 +86,25 @@ def estrai_domanda(content: str, index: int) -> str:
     # return question
 def estrai_risposte(content: str, index: int) -> str:
     # index = content.index("£")
-    return content[index:]
+    return content[index+1:]
     # return answers
 
 def main():
     content: str = leggi_file()
     index: int = estrai_index(content)
     domanda: str = estrai_domanda(content, index)
-    risposte: str = estrai_risposte(content, index)
-    
+    risposta: str = estrai_risposte(content, index)
+
     is_risposta_corretta: bool = False
     while True:
         mostra_domanda(domanda)
+    
         risposta_da_validare: str = raccogli_risposta()
         risposta_validarta: bool = valida_scelta(risposta_da_validare)
         feedback: str = ""
 
         if risposta_validarta == True:
-            is_risposta_corretta = is_risposta_esatta(risposta_da_validare)
+            is_risposta_corretta = is_risposta_esatta(risposta_da_validare, risposta)
             feedback = genera_feedback(is_risposta_corretta)
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
@@ -111,7 +112,7 @@ def main():
         mostra_feedback(feedback)
         if is_risposta_corretta == True:
             break
-"""
+
 #Entry point del nostro programma
 main()
 
