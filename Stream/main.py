@@ -61,9 +61,10 @@ def raccogli_risposta() -> str:
     return input("Inserisci la tua scelta: ")
 
 
-def leggi_file() -> None:
+def leggi_file() -> str:
     with open("domanda-1.txt", "r") as file:
         content = file.read()
+        return content
         # index = content.index("£")
         # question = content[0:index]
         # answers = content[index+1:]
@@ -75,17 +76,23 @@ def leggi_file() -> None:
         # print (len(content))
         # print(content.index("£"))
 
-def estrai_domanda(content: str) -> str:
-    index = content.index("£")
+def estrai_index(content: str) -> int:
+    return content.index("£")
+
+def estrai_domanda(content: str, index: int) -> str:
+    # index = content.index("£")
     return content[0:index]
     # return question
-def estrai_risposte(content:str) -> str:
-    index = content.index("£")
+def estrai_risposte(content: str, index: int) -> str:
+    # index = content.index("£")
     return content[index:]
     # return answers
 
 def main():
-    leggi_file()
+    content: str = leggi_file()
+    index: int = estrai_index(content)
+    domanda: str = estrai_domanda(content, index)
+    risposte: str = estrai_risposte(content, index)
 
     """is_risposta_corretta: bool = False
     while True:
