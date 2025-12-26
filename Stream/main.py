@@ -64,11 +64,25 @@ def raccogli_risposta() -> str:
 def leggi_file() -> None:
     with open("domanda-1.txt", "r") as file:
         content = file.read()
-        print(content)
-        print(type(content))
-        print (len(content))
-        print(content.index("£"))
+        # index = content.index("£")
+        # question = content[0:index]
+        # answers = content[index+1:]
+        # print(question)
+        # print('-------')
+        # print(answers)
+        # print(content)
+        # print(type(content))
+        # print (len(content))
+        # print(content.index("£"))
 
+def estrai_domanda(content: str) -> str:
+    index = content.index("£")
+    return content[0:index]
+    # return question
+def estrai_risposte(content:str) -> str:
+    index = content.index("£")
+    return content[index:]
+    # return answers
 
 def main():
     leggi_file()
