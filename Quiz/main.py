@@ -1,3 +1,5 @@
+import sys
+
 """
 mostra_menu() (senza return)
 - Non prende parametri
@@ -36,7 +38,8 @@ def mostra_feedback(messaggio: str) -> None:
 """)
 
 def is_risposta_esatta(scelta: str) -> bool:
-    if scelta.upper() == "A":
+    # if scelta.upper() == "A":
+    if scelta.upper() == risposta_esatta:
         return True
     else:
         return False
@@ -65,16 +68,17 @@ def valida_scelta(scelta: str) -> bool:
 """
 Questa funzione restituisce la domanda e le opzioni della risposta
 """
-def mostra_domanda() -> None:
-    print(
-"""
-Domanda?
-A
-B
-C
-D
-"""
-)
+def mostra_domanda(domanda: str) -> None:
+    print(domanda)
+#     print(
+# """
+# Domanda?
+# A
+# B
+# C
+# D
+# """
+# )
 
 
 
@@ -86,24 +90,46 @@ def raccogli_risposta() -> str:
     return input("Inserisci la tua scelta: ")
 
 
-def leggi_file() -> None:
-    with open("domanda-1.txt", "r") as file:
+def leggi_file(file_path: str) -> str:
+    with open(file_path, "r") as file:
         content = file.read()
-    print (content) 
+        return content
+        
+# ) -> None:
+#     with open("domanda-1.txt", "r") as file:
+#         content = file.read()
+#     print (content) 
+
+def estrai_index(content: str) -> int:
+    return content.index("£")
+
+def estrai_domanda(content: str, index: int) -> str:
+    return content[0:index]
+
+def estrai_risposte(content: str, index: int) -> str:
+    return content[index+1:]
 
 
 def main():
-    leggi_file()
+    file_path: str = sys.argv[1]
+    # print(sys.argv[1])
+    content: str = leggi_file(file_path)
+    index: int = estrai_index(content)
+    domanda: str = estrai_domanda(content, index)
+    risposta: str = estrai_risposte(content, index)
 
-    """is_risposta_corretta: bool = False
+    is_risposta_corretta: bool = False
     while True:
-        mostra_domanda()
-        risposta_da_validare: str = valida_scelta()
+        mostra_domanda(domanda)
+        # mostra_domanda()
+    
+        risposta_da_validare: str = raccogli_risposta()
+        # risposta_da_validare: str = valida_scelta()
         risposta_validarta: bool = valida_scelta(risposta_da_validare)
         feedback: str = ""
 
         if risposta_validarta == True:
-            is_risposta_corretta = is_risposta_esatta(risposta_da_validare)
+            is_risposta_corretta = is_risposta_esatta(risposta_da_validare, risposta)
             feedback = genera_feedback(is_risposta_corretta)
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
@@ -111,7 +137,8 @@ def main():
         mostra_feedback(feedback)
         if is_risposta_corretta == True:
             break
-"""
+
+
 
 #Entry point del nostro programma
 main()
