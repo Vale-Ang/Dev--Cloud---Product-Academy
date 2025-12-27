@@ -1,3 +1,4 @@
+import sys
 
 """
 Restituisci il feedback formatato nella maniera desiderata.<
@@ -62,8 +63,8 @@ def raccogli_risposta() -> str:
     return input("Inserisci la tua scelta: ")
 
 
-def leggi_file() -> str:
-    with open("domanda-1.txt", "r") as file:
+def leggi_file(file_path: str) -> str:
+    with open(file_path, "r") as file:
         content = file.read()
         return content
         # index = content.index("£")
@@ -90,7 +91,9 @@ def estrai_risposte(content: str, index: int) -> str:
     # return answers
 
 def main():
-    content: str = leggi_file()
+    file_path: str = sys.argv[1]
+    # print(sys.argv[1])
+    content: str = leggi_file(file_path)
     index: int = estrai_index(content)
     domanda: str = estrai_domanda(content, index)
     risposta: str = estrai_risposte(content, index)
