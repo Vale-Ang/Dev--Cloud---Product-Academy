@@ -91,6 +91,12 @@ def estrai_risposte(content: str, index: int) -> str:
     # return answers
 
 def main():
+    with open("domande.txt","r") as f:
+        for i in f:
+            # print(i)
+            print(i.strip())
+        # print(f.read())
+'''
     file_path: str = sys.argv[1]
     # print(sys.argv[1])
     content: str = leggi_file(file_path)
@@ -115,7 +121,7 @@ def main():
         mostra_feedback(feedback)
         if is_risposta_corretta == True:
             break
-
+'''
 #Entry point del nostro programma
 main()
 
