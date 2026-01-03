@@ -91,18 +91,40 @@ def estrai_risposte(content: str, index: int) -> str:
     # return answers
 
 def main():
+    domande_list: list[str] = []
+    qa: dict[str, str] = {
+        "domanda": None,
+        "risposta": None
+    }
+
     with open("domande.txt","r") as f:
         for i in f:
             # print(i)
-            print(i.strip())
+            # print(i.strip())
+            domande_list.append(i.strip())
         # print(f.read())
+
+    # with open(domande_list[0],"r") as f:
+    #     for i in f:
+    #         print(i.strip())
+
+    content: str = leggi_file(domande_list[0])
+    # print(domande_list)
+
+    index: int = estrai_index(content)
+    # domanda: str = estrai_domanda(content, index)
+    qa["domanda"] = estrai_domanda(content, index)
+    # risposta: str = estrai_risposte(content, index)
+    qa["risposta"] = estrai_risposte(content, index)
+    print(qa)
+    # print(domanda)
+    # print(risposta)
 '''
     file_path: str = sys.argv[1]
     # print(sys.argv[1])
     content: str = leggi_file(file_path)
-    index: int = estrai_index(content)
-    domanda: str = estrai_domanda(content, index)
-    risposta: str = estrai_risposte(content, index)
+    
+  
 
     is_risposta_corretta: bool = False
     while True:
