@@ -108,7 +108,7 @@ def main():
     #     for i in f:
     #         print(i.strip())
 
-    content: str = leggi_file(domande_list[0])
+    content: str = leggi_file(f"domande_risposte/{domande_list[1]}")
     # print(domande_list)
 
     index: int = estrai_index(content)
