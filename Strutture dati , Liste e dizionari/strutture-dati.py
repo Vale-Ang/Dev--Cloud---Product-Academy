@@ -1,3 +1,22 @@
+ #dizionari
+persona1: dict[str, str] = {
+    "nome": "Mario",
+    "cognome": "Rossi",
+    "email": "mario.rossi@example.com"
+}
+print(persona1)
+print(persona1["email"])
+
+
+
+
+
+
+
+
+
+#liste
+'''
 stringhe: list[str | int] = ["Pippo", 1, "Pluto", "Paperino"]
 stringhe.append("Topolino") 
 stringhe.append("Minnie")
@@ -24,4 +43,4 @@ else:
 print("*"*30)
 print(stringhe)
 print(deleted_values)
-
+'''
