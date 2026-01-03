@@ -1,14 +1,19 @@
  #dizionari
-persona1: dict[str, str] = {
+persona1: dict[str, str | int] = {
     "nome": "Mario",
     "cognome": "Rossi",
     "email": "mario.rossi@example.com"
 }
 print(persona1)
 print(persona1["email"])
+persona1["telefono"] = 123456789
+persona1["telefono"] = 987654321
+persona1["nome"] = "Marco"
+print(persona1.get("telefono"))
+print(persona1)
 
-
-
+for chiave, valore in persona1.items():
+    print(f"{chiave}: {valore}")
 
 
 
