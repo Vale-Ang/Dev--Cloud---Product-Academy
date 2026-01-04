@@ -1,4 +1,12 @@
-prodotti: list[dict[str, str | float | int]] = [
+from typing import TypedDict
+
+class Prodotto(TypedDict):
+    nome: str
+    prezzo: float
+    quantità: int
+
+# prodotti: list["""dict[str, str | float | int]"""] = [
+prodotti: list[Prodotto] = [
     {
         "nome": "Laptop",
         "prezzo": 899.99,
@@ -22,12 +30,12 @@ prodotti: list[dict[str, str | float | int]] = [
 ]
 print("Prodotti > 100€:")
 for prodotto in prodotti:
-    if prodotto["prezzo"] > 100:
+    if prodotto["prezzo"] > 100.00:
         print(f"- Prodotto: {prodotto['nome']}, Prezzo: {prodotto['prezzo']}")
 print("\nValore totale inventario per prodotto:")
 valore_totale_inventario: float = 0.0
 for prodotto in prodotti:
-    valore_totale_per_prodotto = prodotto["prezzo"] * prodotto["quantità"]
+    valore_totale_per_prodotto: float = prodotto["prezzo"] * prodotto["quantità"]
     print(valore_totale_per_prodotto)
     valore_totale_inventario += valore_totale_per_prodotto
     print(valore_totale_inventario)
