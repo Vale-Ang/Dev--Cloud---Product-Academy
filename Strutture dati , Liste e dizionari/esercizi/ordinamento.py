@@ -16,3 +16,4 @@ for x in prezzi:
     if (x > 50):
         contatore += 1
 print (f"Prezzi > 50: {contatore}")
+#print(sum(1 for p in prezzi if p > 50))
