@@ -37,7 +37,7 @@ def mostra_feedback(messaggio: str) -> None:
 {simbol}
 """)
 
-def is_risposta_esatta(scelta: str) -> bool:
+def is_risposta_esatta(scelta: str, risposta_esatta: str) -> bool:
     # if scelta.upper() == "A":
     if scelta.upper() == risposta_esatta:
         return True
@@ -109,8 +109,70 @@ def estrai_domanda(content: str, index: int) -> str:
 def estrai_risposte(content: str, index: int) -> str:
     return content[index+1:]
 
+def estrai_lista_domande(file_path: str) -> list[str]:
+    lista_domande: list[str] = []
+    with open(file_path,"r") as f:
+        for i in f:
+            lista_domande.append(i.strip())
+    return lista_domande
+
+def genera_statistiche(risultato_finale: list[dict[str, str | bool]]) -> dict[str, int]:
+    statistica: dict[str, int] = {}
+    risposte_esatte: int = 0
+    risposte_non_esatte: int = 0
+    for i in risultato_finale:
+        if i["risposta_corretta"]:
+            risposte_esatte += 1
+        else:
+            risposte_non_esatte += 1
+    statistica["risposte_esatte"] = risposte_esatte
+    statistica["risposte_non_esatte"] = risposte_non_esatte
+    return statistica
 
 def main():
+    lista_domande: list[str] = []
+    domanda_e_risposta: dict[str, str] = {
+        "domanda": None,
+        "risposta": None
+    }
+
+    counter_domanda_corrente: int = 0
+    risultato_finale: list[dict[str, str | bool]] = []
+
+    lista_domande = estrai_lista_domande("domande.txt")
+    lista_domande_len: int = len(lista_domande)
+
+    while counter_domanda_corrente < lista_domande_len:
+
+        risultato: dict[str, str | bool] = {}
+        content: str = leggi_file(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
+        index: int = estrai_index(content)
+        domanda_e_risposta["domanda"] = estrai_domanda(content, index)
+        domanda_e_risposta["risposta"] = estrai_risposte(content, index)
+
+        mostra_domanda(domanda_e_risposta["domanda"])
+        risposta_utente: str = raccogli_risposta()
+        is_risposta_valid: bool = valida_scelta(risposta_utente)
+        feedback: str = ""
+
+        if is_risposta_valid == True:
+            is_risposta_corretta: bool = is_risposta_esatta(risposta_utente, domanda_e_risposta["risposta"])
+            feedback = genera_feedback(is_risposta_corretta)
+            risultato["domanda"] = lista_domande[counter_domanda_corrente]
+            risultato["risposta_corretta"] = is_risposta_corretta
+            risultato_finale.append(risultato)
+            counter_domanda_corrente += 1
+        else:
+            feedback = "Inserisci solo la risposta tra le opzioni elencate"
+
+        mostra_feedback(feedback)
+    
+    statistiche = genera_statistiche(risultato_finale)
+    print(f"Risposte esatte: {statistiche['risposte_esatte']}")
+    print(f"Risposte non esatte: {statistiche['risposte_non_esatte']}")
+
+    print(risultato_finale)
+    """
     file_path: str = sys.argv[1]
     # print(sys.argv[1])
     content: str = leggi_file(file_path)
@@ -138,7 +200,7 @@ def main():
         if is_risposta_corretta == True:
             break
 
-
+"""
 
 #Entry point del nostro programma
 main()
