@@ -25,7 +25,7 @@ def genera_feedback(is_corretta: bool) -> str:
     if is_corretta == True:
         return "Hai indovinato!"
     else:
-        return "Non hai indovinato. Ritenta!"
+        return "Non hai indovinato."
 
 """
 Questa funzione prende un valore di tipo stringa e verifica che la risposta sia una delle opzioni tra A, B, C e D.
@@ -130,12 +130,12 @@ def main():
         # input(qa["domanda"])
         # print(qa)
         mostra_domanda(qa["domanda"])
-        risposta_da_validare: str = raccogli_risposta()
-        risposta_validarta: bool = valida_scelta(risposta_da_validare)
+        answer: str = raccogli_risposta()
+        is_risposta_valid: bool = valida_scelta(answer)
         feedback: str = ""
 
-        if risposta_validarta == True:
-            is_risposta_corretta: bool = is_risposta_esatta(risposta_da_validare, qa["risposta"])
+        if is_risposta_valid == True:
+            is_risposta_corretta: bool = is_risposta_esatta(answer, qa["risposta"])
             feedback = genera_feedback(is_risposta_corretta)
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
