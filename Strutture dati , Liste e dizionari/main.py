@@ -113,63 +113,65 @@ def genera_statistiche(risultato_finale: list[dict[str, str | bool]]) -> dict[st
     return statistica
 
 def main():
-    domande_list: list[str] = []
-    qa: dict[str, str] = {
+    lista_domande: list[str] = []
+    domanda_e_risposta: dict[str, str] = {
         "domanda": None,
         "risposta": None
     }
 
-    counter: int = 0
+    counter_domanda_corrente: int = 0
+    risultato_finale: list[dict[str, str | bool]] = []
 
     # with open("domande.txt","r") as f:
     #     for i in f:
     #         # print(i)
     #         # print(i.strip())
-    #         domande_list.append(i.strip())
+    #         lista_domande.append(i.strip())
     #     # print(f.read())
 
-    # with open(domande_list[0],"r") as f:
+    # with open(lista_domande[0],"r") as f:
     #     for i in f:
     #         print(i.strip())
 
-    domande_list = estrai_lista_domande("domande.txt")
-    counter= len(domande_list)
-    # print(f"domande: {counter}")
-    risultato_finale: list[dict[str, str | bool]] = []
+    lista_domande = estrai_lista_domande("domande.txt")
+    lista_domande_len: int = len(lista_domande)
+    # print(f"domande: {counter_domanda_corrente}")
 
     # {
         # "domanda": "file_nome.txt",
         # "risposta_corretta": True
     # }
 
-    for q in range(counter):
+    while counter_domanda_corrente < lista_domande_len:
+    # for q in range(counter_domanda_corrente):
         risultato: dict[str, str | bool] = {}
-        content: str = leggi_file(f"domande_risposte/{domande_list[q]}")
-        # print(domande_list)
+        content: str = leggi_file(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
+        # print(lista_domande)
         index: int = estrai_index(content)
-        qa["domanda"] = estrai_domanda(content, index)
-        qa["risposta"] = estrai_risposte(content, index)
-        # input(qa["domanda"])
-        # print(qa)
-        mostra_domanda(qa["domanda"])
-        answer: str = raccogli_risposta()
-        is_risposta_valid: bool = valida_scelta(answer)
+        domanda_e_risposta["domanda"] = estrai_domanda(content, index)
+        domanda_e_risposta["risposta"] = estrai_risposte(content, index)
+        # input(domanda_e_risposta["domanda"])
+        # print(domanda_e_risposta)
+        mostra_domanda(domanda_e_risposta["domanda"])
+        risposta_utente: str = raccogli_risposta()
+        is_risposta_valid: bool = valida_scelta(risposta_utente)
         feedback: str = ""
 
         if is_risposta_valid == True:
-            is_risposta_corretta: bool = is_risposta_esatta(answer, qa["risposta"])
+            is_risposta_corretta: bool = is_risposta_esatta(risposta_utente, domanda_e_risposta["risposta"])
             feedback = genera_feedback(is_risposta_corretta)
-            risultato["domanda"] = domande_list[q]
+            risultato["domanda"] = lista_domande[counter_domanda_corrente]
             risultato["risposta_corretta"] = is_risposta_corretta
             risultato_finale.append(risultato)
+            counter_domanda_corrente += 1
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
 
         mostra_feedback(feedback)
     
     statistiche = genera_statistiche(risultato_finale)
-    print(statistiche["risposte_esatte"])
-    print(statistiche["risposte_non_esatte"])
+    print(f"Risposte esatte: {statistiche['risposte_esatte']}")
+    print(f"Risposte non esatte: {statistiche['risposte_non_esatte']}")
 
     print(risultato_finale)
     
