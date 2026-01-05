@@ -120,8 +120,15 @@ def main():
     domande_list = estrai_lista_domande("domande.txt")
     counter= len(domande_list)
     # print(f"domande: {counter}")
+    risultato_finale: list[dict[str, str | bool]] = []
+
+    # {
+        # "domanda": "file_nome.txt",
+        # "risposta_corretta": True
+    # }
 
     for q in range(counter):
+        risultato: dict[str, str | bool] = {}
         content: str = leggi_file(f"domande_risposte/{domande_list[q]}")
         # print(domande_list)
         index: int = estrai_index(content)
@@ -137,10 +144,23 @@ def main():
         if is_risposta_valid == True:
             is_risposta_corretta: bool = is_risposta_esatta(answer, qa["risposta"])
             feedback = genera_feedback(is_risposta_corretta)
+            risultato["domanda"] = domande_list[q]
+            risultato["risposta_corretta"] = is_risposta_corretta
+            risultato_finale.append(risultato)
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
 
         mostra_feedback(feedback)
+    risposte_esatte: int = 0
+    risposte_non_esatte: int = 0
+    for i in risultato_finale:
+        if i["risposta_corretta"]:
+            risposte_esatte += 1
+        else:
+            risposte_non_esatte += 1
+    print(risultato_finale)
+    print(f"Hai risposto correttamente a {risposte_esatte} domande.")
+    print(f"Hai risposto in modo errato a {risposte_non_esatte} domande.")
         
 
 
