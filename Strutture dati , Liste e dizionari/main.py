@@ -97,6 +97,21 @@ def estrai_lista_domande(file_path: str) -> list[str]:
             lista_domande.append(i.strip())
     return lista_domande
 
+def genera_statistiche(risultato_finale: list[dict[str, str | bool]]) -> dict[str, int]:
+    statistica: dict[str, int] = {}
+    risposte_esatte: int = 0
+    risposte_non_esatte: int = 0
+    for i in risultato_finale:
+        if i["risposta_corretta"]:
+            risposte_esatte += 1
+        else:
+            risposte_non_esatte += 1
+    statistica["risposte_esatte"] = risposte_esatte
+    statistica["risposte_non_esatte"] = risposte_non_esatte
+    # print(f"Hai risposto correttamente a {risposte_esatte} domande.")
+    # print(f"Hai risposto in modo errato a {risposte_non_esatte} domande.")
+    return statistica
+
 def main():
     domande_list: list[str] = []
     qa: dict[str, str] = {
@@ -151,16 +166,13 @@ def main():
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
 
         mostra_feedback(feedback)
-    risposte_esatte: int = 0
-    risposte_non_esatte: int = 0
-    for i in risultato_finale:
-        if i["risposta_corretta"]:
-            risposte_esatte += 1
-        else:
-            risposte_non_esatte += 1
+    
+    statistiche = genera_statistiche(risultato_finale)
+    print(statistiche["risposte_esatte"])
+    print(statistiche["risposte_non_esatte"])
+
     print(risultato_finale)
-    print(f"Hai risposto correttamente a {risposte_esatte} domande.")
-    print(f"Hai risposto in modo errato a {risposte_non_esatte} domande.")
+    
         
 
 
