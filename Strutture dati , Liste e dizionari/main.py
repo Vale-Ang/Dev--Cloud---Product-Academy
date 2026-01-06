@@ -112,6 +112,13 @@ def genera_statistiche(risultato_finale: list[dict[str, str | bool]]) -> dict[st
     # print(f"Hai risposto in modo errato a {risposte_non_esatte} domande.")
     return statistica
 
+def conta_domanda(counter_domanda_corrente: int, lista_domande_len: int) -> None:
+    print('*'*40)
+    print(f"Domanda {counter_domanda_corrente +1} di {lista_domande_len}")
+    print('*'*40)
+
+
+
 def main():
     lista_domande: list[str] = []
     domanda_e_risposta: dict[str, str] = {
@@ -134,7 +141,7 @@ def main():
     #         print(i.strip())
 
     lista_domande = estrai_lista_domande("domande.txt")
-    lista_domande_len: int = len(lista_domande)
+    lista_domande_length: int = len(lista_domande)
     # print(f"domande: {counter_domanda_corrente}")
 
     # {
@@ -142,7 +149,8 @@ def main():
         # "risposta_corretta": True
     # }
 
-    while counter_domanda_corrente < lista_domande_len:
+    while counter_domanda_corrente < lista_domande_length:
+        conta_domanda(counter_domanda_corrente, lista_domande_length)
     # for q in range(counter_domanda_corrente):
         risultato: dict[str, str | bool] = {}
         content: str = leggi_file(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
@@ -163,7 +171,9 @@ def main():
             risultato["domanda"] = lista_domande[counter_domanda_corrente]
             risultato["risposta_corretta"] = is_risposta_corretta
             risultato_finale.append(risultato)
-            counter_domanda_corrente += 1
+            # domanda_pre_o_su = domanda_precendete_o_sucessiva(counter_domanda_corrente, lista_domande_length)
+            # counter_domanda_corrente = aggiorna_counter_domanda(counter_domanda_corrente, domanda_pre_o_su)
+            # counter_domanda_corrente += 1
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
 
