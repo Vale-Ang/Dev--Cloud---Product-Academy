@@ -117,7 +117,27 @@ def conta_domanda(counter_domanda_corrente: int, lista_domande_len: int) -> None
     print(f"Domanda {counter_domanda_corrente +1} di {lista_domande_len}")
     print('*'*40)
 
+def domanda_precendete_o_sucessiva(counter_domanda_corrente, lista_domande_length) -> str:
+    if counter_domanda_corrente == 0:
+        return input("Scegli S (o qualsiasi altro tasto) per andare alla domanda successiva: ")
+    elif counter_domanda_corrente == (lista_domande_length-1):
+        return input("Scegli P per andare alla domanda precedente, oppure premi F (o qualsiasi altro tasto) per finire: ")
+    else:
+        return input("Scegli P per andare alla domanda precedente, oppure premi S (o qualsiasi altro tasto) andare alla domanda successiva: ")
 
+def aggiorna_counter_domanda(counter_domanda_corrente: int, domanda_pre_o_su: str) -> int:
+
+    if domanda_pre_o_su.upper() == "P":
+        if counter_domanda_corrente == 0:
+            counter_domanda_corrente += 1
+        else:
+            counter_domanda_corrente -= 1
+
+    elif domanda_pre_o_su.upper() == "S" :
+        counter_domanda_corrente +=1
+    else:
+        counter_domanda_corrente += 1
+    return counter_domanda_corrente
 
 def main():
     lista_domande: list[str] = []
@@ -171,8 +191,8 @@ def main():
             risultato["domanda"] = lista_domande[counter_domanda_corrente]
             risultato["risposta_corretta"] = is_risposta_corretta
             risultato_finale.append(risultato)
-            # domanda_pre_o_su = domanda_precendete_o_sucessiva(counter_domanda_corrente, lista_domande_length)
-            # counter_domanda_corrente = aggiorna_counter_domanda(counter_domanda_corrente, domanda_pre_o_su)
+            domanda_pre_o_su = domanda_precendete_o_sucessiva(counter_domanda_corrente, lista_domande_length)
+            counter_domanda_corrente = aggiorna_counter_domanda(counter_domanda_corrente, domanda_pre_o_su)
             # counter_domanda_corrente += 1
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
