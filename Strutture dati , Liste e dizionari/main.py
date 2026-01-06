@@ -190,7 +190,10 @@ def main():
             feedback = genera_feedback(is_risposta_corretta)
             risultato["domanda"] = lista_domande[counter_domanda_corrente]
             risultato["risposta_corretta"] = is_risposta_corretta
-            risultato_finale.append(risultato)
+            if counter_domanda_corrente < len(risultato_finale):
+                risultato_finale[counter_domanda_corrente] = risultato
+            else:
+                risultato_finale.append(risultato)
             domanda_pre_o_su = domanda_precendete_o_sucessiva(counter_domanda_corrente, lista_domande_length)
             counter_domanda_corrente = aggiorna_counter_domanda(counter_domanda_corrente, domanda_pre_o_su)
             # counter_domanda_corrente += 1
