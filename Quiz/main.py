@@ -129,6 +129,17 @@ def genera_statistiche(risultato_finale: list[dict[str, str | bool]]) -> dict[st
     statistica["risposte_non_esatte"] = risposte_non_esatte
     return statistica
 
+"""Restiusce l'indice della domanda corrente incrementato di 1 per l'utente."""
+
+def get_numero_domanda_corrente(value: int) -> int:
+    return value +1
+
+"""Restituisce l'indicatore della domanda corrente, rispetto alle domande totali"""
+def print_numero_domanda(valore_domanda_corrente: int, lista_domande_length) -> None:
+    print("------------------------------")
+    print(f"Domanda {valore_domanda_corrente} di {lista_domande_length}")
+    print("------------------------------")
+
 def main():
     lista_domande: list[str] = []
     domanda_e_risposta: dict[str, str] = {
@@ -140,16 +151,17 @@ def main():
     risultato_finale: list[dict[str, str | bool]] = []
 
     lista_domande = estrai_lista_domande("domande.txt")
-    lista_domande_len: int = len(lista_domande)
+    lista_domande_length: int = len(lista_domande)
 
-    while counter_domanda_corrente < lista_domande_len:
+    while counter_domanda_corrente < lista_domande_length:
 
         risultato: dict[str, str | bool] = {}
         content: str = leggi_file(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
         index: int = estrai_index(content)
         domanda_e_risposta["domanda"] = estrai_domanda(content, index)
         domanda_e_risposta["risposta"] = estrai_risposte(content, index)
-
+        valore_domanda_corrente: int = get_numero_domanda_corrente(counter_domanda_corrente)
+        print_numero_domanda(valore_domanda_corrente, lista_domande_length)
         mostra_domanda(domanda_e_risposta["domanda"])
         risposta_utente: str = raccogli_risposta()
         is_risposta_valid: bool = valida_scelta(risposta_utente)
