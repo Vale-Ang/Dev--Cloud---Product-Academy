@@ -1,7 +1,7 @@
 import sys
 # import operazioni
 # from operazioni import moltiplica
-import operazioni as op 
+import operazioni.operazioni as op 
 
 def mostra_feedback(messaggio: str) -> None:
     simbol = "*"*40
