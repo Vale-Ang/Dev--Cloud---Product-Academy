@@ -1,34 +1,5 @@
 import sys
 
-"""
-mostra_menu() (senza return)
-- Non prende parametri
-- Stampa la domanda e le 4 opzioni
-- Non restituisce nulla
-
-raccogli_risposta() (con return)
-- Non prende parametri
-- Chiede l'input all'utente
-- Restituisce la scelta
-
-valida_scelta(scelta) (con return)
-- prende come parametro il valore scelto
-- Verifica se è A, B, C o D usando if
-- Restituisce True se valida, False altrimenti
-
-genera_feedback(scelta) (con return)
-- Prende come parametro la lettera che è stata scelta
-- Usa if/elif/else per determinare il messaggio
-- Restituisce la stringa con il feedback personalizzato
-
-mostra_feedback(messaggio) (senza return)
-- Prende come parametro una stringa
-- Stampa il feedback in modo formattato
-- Non restituisce nulla
-"""
-"""
-Restituisci il feedback formatato nella maniera desiderata.<
-"""
 def mostra_feedback(messaggio: str) -> None:
     simbol = "*"*40
     print(f"""
@@ -38,7 +9,6 @@ def mostra_feedback(messaggio: str) -> None:
 """)
 
 def is_risposta_esatta(scelta: str, risposta_esatta: str) -> bool:
-    # if scelta.upper() == "A":
     if scelta.upper() == risposta_esatta:
         return True
     else:
@@ -70,15 +40,6 @@ Questa funzione restituisce la domanda e le opzioni della risposta
 """
 def mostra_domanda(domanda: str) -> None:
     print(domanda)
-#     print(
-# """
-# Domanda?
-# A
-# B
-# C
-# D
-# """
-# )
 
 
 
@@ -94,11 +55,7 @@ def leggi_file(file_path: str) -> str:
     with open(file_path, "r") as file:
         content = file.read()
         return content
-        
-# ) -> None:
-#     with open("domanda-1.txt", "r") as file:
-#         content = file.read()
-#     print (content) 
+         
 
 def estrai_index(content: str) -> int:
     return content.index("£")
@@ -189,7 +146,6 @@ def main():
                 risultato_finale[counter_domanda_corrente] = risultato
             else:
                 risultato_finale.append(risultato)
-            # counter_domanda_corrente += 1
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
 
@@ -199,14 +155,6 @@ def main():
             counter_domanda_corrente = get_couter_aggiornato(counter_domanda_corrente, input_prev_next)
         else:
             counter_domanda_corrente += 1
-
-
-
-        # qui voglio dare la possibilità di andare avanti o tornare indietro
-        # Cosa ci serve?
-            # input
-            # aggiornare counter_domanda_corrente
-            # lista delle domande len (condizione)
     
     statistiche = genera_statistiche(risultato_finale)
     print("*"*40)
@@ -216,35 +164,6 @@ def main():
     print(f"Risposte non esatte: {statistiche['risposte_non_esatte']}")
 
     print(risultato_finale)
-    """
-    file_path: str = sys.argv[1]
-    # print(sys.argv[1])
-    content: str = leggi_file(file_path)
-    index: int = estrai_index(content)
-    domanda: str = estrai_domanda(content, index)
-    risposta: str = estrai_risposte(content, index)
-
-    is_risposta_corretta: bool = False
-    while True:
-        mostra_domanda(domanda)
-        # mostra_domanda()
-    
-        risposta_da_validare: str = raccogli_risposta()
-        # risposta_da_validare: str = valida_scelta()
-        risposta_validarta: bool = valida_scelta(risposta_da_validare)
-        feedback: str = ""
-
-        if risposta_validarta == True:
-            is_risposta_corretta = is_risposta_esatta(risposta_da_validare, risposta)
-            feedback = genera_feedback(is_risposta_corretta)
-        else:
-            feedback = "Inserisci solo la risposta tra le opzioni elencate"
-        
-        mostra_feedback(feedback)
-        if is_risposta_corretta == True:
-            break
-
-"""
 
 #Entry point del nostro programma
 main()
