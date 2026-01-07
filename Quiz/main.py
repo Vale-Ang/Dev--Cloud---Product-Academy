@@ -183,7 +183,12 @@ def main():
             feedback = genera_feedback(is_risposta_corretta)
             risultato["domanda"] = lista_domande[counter_domanda_corrente]
             risultato["risposta_corretta"] = is_risposta_corretta
-            risultato_finale.append(risultato)
+            risultato_finale_len: int = len(risultato_finale)
+
+            if counter_domanda_corrente < risultato_finale_len:
+                risultato_finale[counter_domanda_corrente] = risultato
+            else:
+                risultato_finale.append(risultato)
             # counter_domanda_corrente += 1
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
@@ -194,6 +199,8 @@ def main():
             counter_domanda_corrente = get_couter_aggiornato(counter_domanda_corrente, input_prev_next)
         else:
             counter_domanda_corrente += 1
+
+
 
         # qui voglio dare la possibilità di andare avanti o tornare indietro
         # Cosa ci serve?
