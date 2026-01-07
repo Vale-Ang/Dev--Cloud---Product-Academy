@@ -6,6 +6,8 @@ import sys
 # import matematica.operazioni_complesse as 
 # import matematica 
 from matematica import moltiplica, somma, sommatoria
+# facciamo una prova 
+from repository_layer import get_file
 
 def mostra_feedback(messaggio: str) -> None:
     simbol = "*"*40
@@ -59,9 +61,11 @@ def raccogli_risposta() -> str:
 
 
 def leggi_file(file_path: str) -> str:
-    with open(file_path, "r") as file:
+    # with open(file_path, "r") as file:
+    with get_file(file_path) as file:
         content = file.read()
         return content
+    
          
 
 def estrai_index(content: str) -> int:
@@ -75,7 +79,8 @@ def estrai_risposte(content: str, index: int) -> str:
 
 def estrai_lista_domande(file_path: str) -> list[str]:
     lista_domande: list[str] = []
-    with open(file_path,"r") as f:
+    # with open(file_path,"r") as f:
+    with get_file(file_path) as f:
         for i in f:
             lista_domande.append(i.strip())
     return lista_domande
