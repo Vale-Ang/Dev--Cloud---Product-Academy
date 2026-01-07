@@ -170,9 +170,10 @@ def main():
 
 #Entry point del nostro programma
 # main()
-
-
-"""Esempi di utilizzo del modulo operazioni.py"""
-# print(operazioni.moltiplica(2,2))
-# print(moltiplica(2,2))
-print(op.moltiplica(2,2))
+if __name__ == "__main__":
+    
+    """Esempi di utilizzo del modulo operazioni.py"""
+    # print(operazioni.moltiplica(2,2))
+    # print(moltiplica(2,2))
+    print(op.moltiplica(2,2))
+    main()
