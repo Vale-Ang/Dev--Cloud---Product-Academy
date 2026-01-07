@@ -140,6 +140,14 @@ def print_numero_domanda(valore_domanda_corrente: int, lista_domande_length) -> 
     print(f"Domanda {valore_domanda_corrente} di {lista_domande_length}")
     print("------------------------------")
 
+"""Restituisce il valore del counter aggiornato per proseguire sulla domanda successiva o precedente."""
+def get_couter_aggiornato(counter_domanda_corrente: int, input: str) -> int:
+    if input.upper() == "P":
+        counter_domanda_corrente -= 1
+    else:
+        counter_domanda_corrente += 1
+    return counter_domanda_corrente
+
 def main():
     lista_domande: list[str] = []
     domanda_e_risposta: dict[str, str] = {
@@ -153,9 +161,11 @@ def main():
     lista_domande = estrai_lista_domande("domande.txt")
     lista_domande_length: int = len(lista_domande)
 
-    while counter_domanda_corrente < lista_domande_length:
-
-        risultato: dict[str, str | bool] = {}
+    while counter_domanda_corrente <= lista_domande_length:
+        if counter_domanda_corrente == lista_domande_length:
+            break
+         
+        
         content: str = leggi_file(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
         index: int = estrai_index(content)
         domanda_e_risposta["domanda"] = estrai_domanda(content, index)
@@ -168,18 +178,33 @@ def main():
         feedback: str = ""
 
         if is_risposta_valid == True:
+            risultato: dict[str, str | bool] = {}
             is_risposta_corretta: bool = is_risposta_esatta(risposta_utente, domanda_e_risposta["risposta"])
             feedback = genera_feedback(is_risposta_corretta)
             risultato["domanda"] = lista_domande[counter_domanda_corrente]
             risultato["risposta_corretta"] = is_risposta_corretta
             risultato_finale.append(risultato)
-            counter_domanda_corrente += 1
+            # counter_domanda_corrente += 1
         else:
             feedback = "Inserisci solo la risposta tra le opzioni elencate"
 
         mostra_feedback(feedback)
+        if counter_domanda_corrente > 0:
+            input_prev_next = input("Digita 'P' per tornare alla domanda precedente, qualsiasi altro tasto per proseguire: ")
+            counter_domanda_corrente = get_couter_aggiornato(counter_domanda_corrente, input_prev_next)
+        else:
+            counter_domanda_corrente += 1
+
+        # qui voglio dare la possibilità di andare avanti o tornare indietro
+        # Cosa ci serve?
+            # input
+            # aggiornare counter_domanda_corrente
+            # lista delle domande len (condizione)
     
     statistiche = genera_statistiche(risultato_finale)
+    print("*"*40)
+    print("GIOCO TERMINATO! Ecco i risultati:")
+    print("*"*40)
     print(f"Risposte esatte: {statistiche['risposte_esatte']}")
     print(f"Risposte non esatte: {statistiche['risposte_non_esatte']}")
 
