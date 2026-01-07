@@ -1,4 +1,7 @@
 import sys
+# import operazioni
+# from operazioni import moltiplica
+import operazioni as op 
 
 def mostra_feedback(messaggio: str) -> None:
     simbol = "*"*40
@@ -166,4 +169,10 @@ def main():
     print(risultato_finale)
 
 #Entry point del nostro programma
-main()
+# main()
+
+
+"""Esempi di utilizzo del modulo operazioni.py"""
+# print(operazioni.moltiplica(2,2))
+# print(moltiplica(2,2))
+print(op.moltiplica(2,2))
