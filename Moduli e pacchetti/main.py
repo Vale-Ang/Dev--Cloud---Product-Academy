@@ -7,15 +7,19 @@ import sys
 # import matematica 
 from matematica import moltiplica, somma, sommatoria
 # facciamo una prova 
-from repository_layer import get_file
+# from repository_layer import get_file
+from data_model_layer import get_domanda, get_lista_domande
+from frontend_layer import mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, print_statistiche
 
-def mostra_feedback(messaggio: str) -> None:
-    simbol = "*"*40
-    print(f"""
-{simbol}
-{messaggio}
-{simbol}
-""")
+
+# Funzione mostra_feedback spostata in frontend_layer.py
+# def mostra_feedback(messaggio: str) -> None:
+#     simbol = "*"*40
+#     print(f"""
+# {simbol}
+# {messaggio}
+# {simbol}
+# """)
 
 def is_risposta_esatta(scelta: str, risposta_esatta: str) -> bool:
     if scelta.upper() == risposta_esatta:
@@ -43,14 +47,13 @@ def valida_scelta(scelta: str) -> bool:
         return True
     else:
         return False
-    
-"""
-Questa funzione restituisce la domanda e le opzioni della risposta
-"""
-def mostra_domanda(domanda: str) -> None:
-    print(domanda)
 
-
+# Funzione mostra_domanda spostata in frontend_layer.py 
+# """
+# Questa funzione restituisce la domanda e le opzioni della risposta
+# """
+# def mostra_domanda(domanda: str) -> None:
+#     print(domanda)
 
 """
 Questa funzione si occupa solamente di prendere l'input dell'utente
@@ -59,14 +62,12 @@ Il controllo di tale valore avverrà attraverso una funzione dedicata.
 def raccogli_risposta() -> str:
     return input("Inserisci la tua scelta: ")
 
-
-def leggi_file(file_path: str) -> str:
-    # with open(file_path, "r") as file:
-    with get_file(file_path) as file:
-        content = file.read()
-        return content
-    
-         
+# leggi_file diventa get_domanda e lo sposto in data_model_layer.py
+# def leggi_file(file_path: str) -> str:
+#     # with open(file_path, "r") as file:
+#     with get_file(file_path) as file:
+#         content = file.read()
+#         return content
 
 def estrai_index(content: str) -> int:
     return content.index("£")
@@ -77,13 +78,14 @@ def estrai_domanda(content: str, index: int) -> str:
 def estrai_risposte(content: str, index: int) -> str:
     return content[index+1:]
 
-def estrai_lista_domande(file_path: str) -> list[str]:
-    lista_domande: list[str] = []
-    # with open(file_path,"r") as f:
-    with get_file(file_path) as f:
-        for i in f:
-            lista_domande.append(i.strip())
-    return lista_domande
+# estrai_lista_domande diventa get_lista_domande e lo sposto in data_model_layer.py
+# def estrai_lista_domande(file_path: str) -> list[str]:
+#     lista_domande: list[str] = []
+#     # with open(file_path,"r") as f:
+#     with get_file(file_path) as f:
+#         for i in f:
+#             lista_domande.append(i.strip())
+#     return lista_domande
 
 def genera_statistiche(risultato_finale: list[dict[str, str | bool]]) -> dict[str, int]:
     statistica: dict[str, int] = {}
@@ -103,11 +105,12 @@ def genera_statistiche(risultato_finale: list[dict[str, str | bool]]) -> dict[st
 def get_numero_domanda_corrente(value: int) -> int:
     return value +1
 
-"""Restituisce l'indicatore della domanda corrente, rispetto alle domande totali"""
-def print_numero_domanda(valore_domanda_corrente: int, lista_domande_length) -> None:
-    print("------------------------------")
-    print(f"Domanda {valore_domanda_corrente} di {lista_domande_length}")
-    print("------------------------------")
+# Funzione print_numero_domanda spostata in frontend_layer.py
+# """Restituisce l'indicatore della domanda corrente, rispetto alle domande totali"""
+# def print_numero_domanda(valore_domanda_corrente: int, lista_domande_length) -> None:
+#     print("------------------------------")
+#     print(f"Domanda {valore_domanda_corrente} di {lista_domande_length}")
+#     print("------------------------------")
 
 """Restituisce il valore del counter aggiornato per proseguire sulla domanda successiva o precedente."""
 def get_couter_aggiornato(counter_domanda_corrente: int, input: str) -> int:
@@ -127,15 +130,15 @@ def main():
     counter_domanda_corrente: int = 0
     risultato_finale: list[dict[str, str | bool]] = []
 
-    lista_domande = estrai_lista_domande("domande.txt")
+    lista_domande = get_lista_domande("domande.txt")
     lista_domande_length: int = len(lista_domande)
 
     while counter_domanda_corrente <= lista_domande_length:
         if counter_domanda_corrente == lista_domande_length:
             break
          
-        
-        content: str = leggi_file(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
+        # content: str = leggi_file(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
+        content: str = get_domanda(f"domande_risposte/{lista_domande[counter_domanda_corrente]}")
         index: int = estrai_index(content)
         domanda_e_risposta["domanda"] = estrai_domanda(content, index)
         domanda_e_risposta["risposta"] = estrai_risposte(content, index)
@@ -169,13 +172,20 @@ def main():
             counter_domanda_corrente += 1
     
     statistiche = genera_statistiche(risultato_finale)
-    print("*"*40)
-    print("GIOCO TERMINATO! Ecco i risultati:")
-    print("*"*40)
-    print(f"Risposte esatte: {statistiche['risposte_esatte']}")
-    print(f"Risposte non esatte: {statistiche['risposte_non_esatte']}")
 
-    print(risultato_finale)
+    # Creo una funzione print_gioco_terminato in frontend_layer.py
+    # print("*"*40)
+    # print("GIOCO TERMINATO! Ecco i risultati:")
+    # print("*"*40)
+
+    print_gioco_terminato()
+
+    # Creo una funzione print_statistiche in frontend_layer.py
+    # print(f"Risposte esatte: {statistiche['risposte_esatte']}")
+    # print(f"Risposte non esatte: {statistiche['risposte_non_esatte']}")
+     # print(risultato_finale)
+
+    print_statistiche(statistiche, risultato_finale)
 
 #Entry point del nostro programma
 # main()
