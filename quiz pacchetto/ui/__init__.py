@@ -1,0 +1,2 @@
+from .console import mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, print_statistiche
+__all__ = [mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, print_statistiche] 
