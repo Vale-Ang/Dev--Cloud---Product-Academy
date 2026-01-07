@@ -1,7 +1,11 @@
 import sys
 # import operazioni
 # from operazioni import moltiplica
-import operazioni.operazioni as op 
+# import matematica.operazioni as op 
+# from matematica.operazioni import moltiplica, somma
+# import matematica.operazioni_complesse as 
+# import matematica 
+from matematica import moltiplica, somma, sommatoria
 
 def mostra_feedback(messaggio: str) -> None:
     simbol = "*"*40
@@ -175,5 +179,6 @@ if __name__ == "__main__":
     """Esempi di utilizzo del modulo operazioni.py"""
     # print(operazioni.moltiplica(2,2))
     # print(moltiplica(2,2))
-    print(op.moltiplica(2,2))
+    # print(op.moltiplica(2,2))
+    print(moltiplica(2,2))
     main()
