@@ -1,2 +1,2 @@
-from .console import mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, print_statistiche
-__all__ = [mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, print_statistiche] 
+from .console import gestisci_menu_fine_gioco, mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, raccogli_risposta, genera_feedback, gestisci_menu_fine_gioco, mostra_risultati_finali  
+__all__ = [mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, raccogli_risposta, genera_feedback, gestisci_menu_fine_gioco, mostra_risultati_finali] 
