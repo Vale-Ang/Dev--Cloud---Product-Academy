@@ -42,8 +42,16 @@ persona1 = Persona("Claudia", "Nigro", True)
 persona2 = Persona("Valeria", "Angioj", True)
 persona3 = Persona("Maria", "Rossi", False)
 
-ar = [persona1, persona2, persona3]
+corso1 = Corso("Edgemony")
 
-for persona in ar:
-    persona.printIsEgemonyPartecipant()
+
+plist= [persona1, persona2, persona3]
+
+for persona in plist:
+    print(f"Prima {corso1.partecipants}")
+    print(corso1.addPartecipant(persona))  # True
+    print(f"Dopo {corso1.partecipants}")
+    print("-----")
+
+    # persona.printIsEgemonyPartecipant()
     # print(f"{persona.nome} {persona.cognome}: {persona.isEgemonyPartecipant}")
