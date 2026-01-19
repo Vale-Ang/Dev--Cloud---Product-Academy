@@ -1,6 +1,24 @@
 import sys
-from data import get_couter_aggiornato, is_risposta_esatta, valida_scelta, genera_statistiche, get_numero_domanda_corrente, get_lista_domande_e_risposte, calcola_percentuale, recupera_dati_domanda, verifica_superamento, aggiorna_lista_risultati
-from ui import mostra_feedback, mostra_domanda, print_numero_domanda, print_gioco_terminato, raccogli_risposta, genera_feedback, mostra_risultati_finali, gestisci_menu_fine_gioco
+from data import (
+    get_couter_aggiornato, 
+    is_risposta_esatta, 
+    valida_scelta, 
+    genera_statistiche, 
+    get_numero_domanda_corrente, 
+    get_lista_domande_e_risposte, 
+    calcola_percentuale, 
+    recupera_dati_domanda, 
+    verifica_superamento, 
+    aggiorna_lista_risultati)
+from ui import (
+    mostra_feedback, 
+    mostra_domanda, 
+    print_numero_domanda, 
+    print_gioco_terminato, 
+    raccogli_risposta, 
+    genera_feedback, 
+    mostra_risultati_finali, 
+    gestisci_menu_fine_gioco)
 
 
 # Funzione mostra_feedback spostata in frontend_layer.py
