@@ -1,3 +1,4 @@
+import requests
 from data import get_file
 
 def get_domanda_e_risposta_singola(file_path: str) -> str:
@@ -15,6 +16,41 @@ def get_domanda_e_risposta_singola(file_path: str) -> str:
     
     return content
 
+def get_lista_domande_e_risposte_from_server(url: str) -> str:
+    lista_domande: list[str] = []
+    if not url or not isinstance(url, str):
+        raise ValueError("URL deve essere una stringa non vuota")
+    try:
+        response = requests.get(url)
+        response.raise_for_status() # Verifica se la richiesta HTTP è andata a buon fine
+        
+        # Dividiamo il testo della risposta in righe e puliamo gli spazi
+        lista_domande = [line.strip() for line in response.text.splitlines() if line.strip()]
+        if not lista_domande:
+            raise ValueError("Nessuna domanda valida trovata nell'URL fornito")
+        return lista_domande
+    except FileNotFoundError:
+        raise FileNotFoundError(f"L'URL {url} non è stato trovato.")
+    except RuntimeError:
+        raise RuntimeError("Si è verificato un errore durante la lettura del file.")
+    except Exception:
+        raise Exception("Si è verificato un errore.")
+    
+def recupera_dati_domanda_web(url_domanda: str) -> dict[str, str]:
+    """Recupera il contenuto di una singola domanda da un URL"""
+    try:
+        response = requests.get(url_domanda)
+        response.raise_for_status()
+        content = response.text
+        
+        index = estrai_index(content)
+        return {
+            "domanda": estrai_domanda(content, index),
+            "risposta": estrai_risposte(content, index).strip()
+        }
+    except Exception as e:
+        raise RuntimeError(f"Impossibile recuperare la domanda dall'URL {url_domanda}: {e}")
+    
 def get_lista_domande_e_risposte(file_path: str) -> list[str]:
     lista_domande: list[str] = []
     try:

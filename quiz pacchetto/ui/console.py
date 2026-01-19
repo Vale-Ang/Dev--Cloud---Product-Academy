@@ -53,7 +53,7 @@ def raccogli_risposta() -> str:
 def mostra_riepilogo(risultati: list[dict[str, str | bool]]) -> None:
     print("\n--- RIEPILOGO RISPOSTE ---")
     for i, ris in enumerate(risultati):
-        print(f"{i + 1}. {ris['domanda']} - La tua risposta: {ris.get('scelta_utente', 'N/A')}")
+        print(f"{i + 1}. {ris['domanda']} - La tua risposta: {ris.get('risposta_utente', 'N/A')}")
     print("--------------------------")
 
 def mostra_risultati_finali(esatte: int, errate: int, totale: int, percentuale: float, superato: bool) -> None:

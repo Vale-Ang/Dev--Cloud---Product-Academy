@@ -1,3 +1,3 @@
 from .repository import get_file
-from .services import get_couter_aggiornato, is_risposta_esatta, valida_scelta, genera_statistiche, get_numero_domanda_corrente, get_lista_domande_e_risposte, calcola_percentuale, recupera_dati_domanda, verifica_superamento, aggiorna_lista_risultati
-__all__ = [get_file, get_couter_aggiornato, is_risposta_esatta, valida_scelta, genera_statistiche, get_numero_domanda_corrente, get_lista_domande_e_risposte, calcola_percentuale, recupera_dati_domanda, verifica_superamento, aggiorna_lista_risultati]
+from .services import get_couter_aggiornato, is_risposta_esatta, valida_scelta, genera_statistiche, get_numero_domanda_corrente, get_lista_domande_e_risposte, calcola_percentuale, recupera_dati_domanda, verifica_superamento, aggiorna_lista_risultati, get_lista_domande_e_risposte_from_server, recupera_dati_domanda_web  
+__all__ = [get_file, get_couter_aggiornato, is_risposta_esatta, valida_scelta, genera_statistiche, get_numero_domanda_corrente, get_lista_domande_e_risposte, calcola_percentuale, recupera_dati_domanda, verifica_superamento, aggiorna_lista_risultati, get_lista_domande_e_risposte_from_server, recupera_dati_domanda_web]
