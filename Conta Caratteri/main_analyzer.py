@@ -70,7 +70,7 @@ REGEX_FRASI = r'[^.!?]+[.!?]+'         # Frasi terminate da . ! ?
 
 from ui.console import print_risultato
 from data.services import get_caratteri_len, get_text_no_space, get_words_number, get_phrase_number
-from data.repositoty import get_data_from_server
+from data.repository import get_data_from_server
 from constant import URL
 # from data.repositoty import get_file_content
 # import requests
