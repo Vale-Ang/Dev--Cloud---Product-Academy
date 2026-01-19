@@ -1,0 +1,3 @@
+https://raw.githubusercontent.com/Vale-Ang/Dev--Cloud---Product-Academy/refs/heads/main/quiz%20pacchetto/domande_risposte/domanda-1.txt
+https://raw.githubusercontent.com/Vale-Ang/Dev--Cloud---Product-Academy/refs/heads/main/quiz%20pacchetto/domande_risposte/domanda-2.txt
+https://raw.githubusercontent.com/Vale-Ang/Dev--Cloud---Product-Academy/refs/heads/main/quiz%20pacchetto/domande_risposte/domanda-3.txt
