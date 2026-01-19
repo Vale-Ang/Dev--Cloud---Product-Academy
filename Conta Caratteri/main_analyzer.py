@@ -70,7 +70,11 @@ REGEX_FRASI = r'[^.!?]+[.!?]+'         # Frasi terminate da . ! ?
 
 from ui.console import print_risultato
 from data.services import get_caratteri_len, get_text_no_space, get_words_number, get_phrase_number
-from data.repositoty import get_file_content
+from data.repositoty import get_data_from_server
+from constant import URL
+# from data.repositoty import get_file_content
+# import requests
+
 
 # Sposta in repository
 # ===========================
@@ -150,19 +154,37 @@ from data.repositoty import get_file_content
 #     print(f"Il numero si {spec} è {value }") 
 #     print('*'*30)
 
+# URL: str = "https://raw.githubusercontent.com/emanuelegurini/aws-restart/refs/heads/main/conta-caratteri/text.txt"  
+
+# def get_data_from_server(url: str) -> str:
+#     if not url or not isinstance(url, str):
+#         raise ValueError("URL deve essere una stringa non vuota")
+#     try:
+#         response = requests.get(url)
+#         return response.text 
+#         # print(response.text) #serializzo il contenuto della risposta 
+#         # print(response)
+#         # print(type(response)) #oggetto di tipo response
+
+#     except Exception:
+#         raise Exception("Problema con la chiamata al server")
 
 def main():
 
     try:
         # print("aperto stream")
-        content: str = get_file_content("prova.txt")
+        # content: str = get_file_content("prova.txt")
         # testo: str = get_testo(content)
+        content:str = get_data_from_server(URL)
         print(content)
         print_risultato(get_caratteri_len(content), "caratteri")
         # get_text_len(content)
         print_risultato(get_caratteri_len(get_text_no_space(content)), "caratteri senza spazi")
         print_risultato(get_words_number(content), "parole")
         print_risultato(get_phrase_number(content), "frasi")
+
+        
+
     except ValueError as e:    
         print(f"{e}")
     except FileNotFoundError as e:
