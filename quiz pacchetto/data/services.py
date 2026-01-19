@@ -1,15 +1,34 @@
 from data import get_file
 
 def get_domanda_e_risposta_singola(file_path: str) -> str:
-    with get_file(file_path) as file:
-        content = file.read()
+    try:
+        with get_file(file_path) as file:
+            content = file.read()
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Il file {file_path} non è stato trovato.")
+    except RuntimeError:
+        raise RuntimeError("Si è verificato un errore durante la lettura del file.")
+    except Exception:
+        raise Exception("Si è verificato un errore.")
+    if not content.strip():
+        raise ValueError("Il file è vuoto: nessuna domanda trovata")
+    
     return content
 
 def get_lista_domande_e_risposte(file_path: str) -> list[str]:
     lista_domande: list[str] = []
-    with get_file(file_path) as f:
-        for i in f:
-            lista_domande.append(i.strip())
+    try:
+        with get_file(file_path) as f:
+            for i in f:
+                lista_domande.append(i.strip())
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Il file {file_path} non è stato trovato.")
+    except RuntimeError:
+        raise RuntimeError("Si è verificato un errore durante la lettura del file.")
+    except Exception:
+        raise Exception("Si è verificato un errore.")
+    if not lista_domande:
+        raise ValueError("Nessuna domanda valida trovata nel file")
     return lista_domande
 
 def estrai_index(content: str) -> int:
