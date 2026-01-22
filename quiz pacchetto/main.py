@@ -11,7 +11,9 @@ from data import (
     verifica_superamento, 
     aggiorna_lista_risultati,
     get_lista_domande_e_risposte_from_server,
-    recupera_dati_domanda_web)
+    recupera_dati_domanda_web, 
+    get_lista_domande_e_risposte_url,
+    recupera_dati_domanda_url)
 from ui import (
     mostra_feedback, 
     mostra_domanda, 
@@ -21,7 +23,7 @@ from ui import (
     genera_feedback, 
     mostra_risultati_finali, 
     gestisci_menu_fine_gioco)
-from constant import Url
+from constant import Url1, URL
 
 # Funzione mostra_feedback spostata in frontend_layer.py
 # def mostra_feedback(messaggio: str) -> None:
@@ -137,7 +139,8 @@ from constant import Url
 def main():
     # lista_domande: list[str] = []
     # lista_domande = get_lista_domande_e_risposte("domande.txt")
-    lista_domande = get_lista_domande_e_risposte_from_server(Url)
+    # lista_domande = get_lista_domande_e_risposte_from_server(Url1)
+    lista_domande = get_lista_domande_e_risposte_url(Url1)
 
     # domanda_e_risposta: dict[str, str] = {
     #     "domanda": None,
@@ -166,7 +169,8 @@ def main():
         
         # recupero dei dati
         # dati_correnti = recupera_dati_domanda(lista_domande[counter_domanda_corrente]) 
-        dati_correnti = recupera_dati_domanda_web(lista_domande[counter_domanda_corrente])
+        # dati_correnti = recupera_dati_domanda_web(lista_domande[counter_domanda_corrente])
+        dati_correnti = recupera_dati_domanda_url(lista_domande[counter_domanda_corrente])
 
         valore_domanda_corrente: int = get_numero_domanda_corrente(counter_domanda_corrente)
         print_numero_domanda(valore_domanda_corrente, lista_domande_length)

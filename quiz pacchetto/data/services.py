@@ -1,5 +1,5 @@
 import requests
-from data import get_file
+from data import get_file, get_data
 
 def get_domanda_e_risposta_singola(file_path: str) -> str:
     try:
@@ -13,8 +13,19 @@ def get_domanda_e_risposta_singola(file_path: str) -> str:
         raise Exception("Si è verificato un errore.")
     if not content.strip():
         raise ValueError("Il file è vuoto: nessuna domanda trovata")
-    
     return content
+
+def get_domanda_e_risposta_singola_url(URL: str) -> str:
+    if URL is None:
+        raise ValueError("L'URL non può essere una stringa vuota")
+    try:
+        return get_data(URL)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Il file {URL} non è stato trovato.")
+    except RuntimeError:
+        raise RuntimeError("Si è verificato un errore durante la lettura del file.")
+    except Exception as e:
+        raise Exception("Si è verificato un errore {e}.")
 
 def get_lista_domande_e_risposte_from_server(url: str) -> str:
     lista_domande: list[str] = []
@@ -65,6 +76,23 @@ def get_lista_domande_e_risposte(file_path: str) -> list[str]:
         raise Exception("Si è verificato un errore.")
     if not lista_domande:
         raise ValueError("Nessuna domanda valida trovata nel file")
+    return lista_domande
+
+def get_lista_domande_e_risposte_url(URL: str) -> list[str]:
+    if URL is None:
+        raise ValueError("L'URL non può essere una stringa vuota")
+    lista_domande: list[str] = []
+    try:
+        text = get_data(URL)
+        lista_domande = [riga.strip() for riga in text.splitlines() if riga.strip() ]
+        # for i in text.splitlines():
+        #         lista_domande.append(i.strip())
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Il file {URL} non è stato trovato.")
+    except RuntimeError:
+        raise RuntimeError("Si è verificato un errore durante la lettura del file.")
+    except Exception as e:
+        raise Exception("Si è verificato un errore {e}.")
     return lista_domande
 
 def estrai_index(content: str) -> int:
@@ -133,6 +161,26 @@ def verifica_superamento(percentuale: float, soglia: float = 60.0) -> bool:
 """Gestisce il parsing di ogni domanda"""
 def recupera_dati_domanda(nome_file: str) -> dict[str, str]:
     content: str = get_domanda_e_risposta_singola(f"domande_risposte/{nome_file}")
+    index: int = estrai_index(content)
+    return {
+        "domanda": estrai_domanda(content, index),
+        "risposta": estrai_risposte(content, index)
+    }
+
+"""Gestisce il parsing di ogni domanda"""
+def recupera_dati_domanda_url(URL: str) -> dict[str, str]:
+    content: str = ""
+    if URL is None:
+        raise ValueError("L'URL non può essere una stringa vuota")
+    try:
+        content = get_data(URL)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Il file {URL} non è stato trovato.")
+    except RuntimeError:
+        raise RuntimeError("Si è verificato un errore durante la lettura del file.")
+    except Exception as e:
+        raise Exception("Si è verificato un errore {e}.")
+
     index: int = estrai_index(content)
     return {
         "domanda": estrai_domanda(content, index),
