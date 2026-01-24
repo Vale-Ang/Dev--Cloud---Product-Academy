@@ -45,7 +45,32 @@ def product_model(product: dict[str, any]) -> dict[str, any]:
             f"Formato dati non valido: {e}"
         ) from e
 
+def product_model_id_titolo(product: dict[str, any]) -> dict[str, any]:
+    try:
+        return {
+            "id": product["id"],
+            "title": product["title"],
+        }
+    except KeyError as e:
+        raise KeyError(
+            f"Campo obbligatorio mancante nei dati del prodotto: {e}"
+        ) from e
+    except TypeError as e:
+        raise TypeError(
+            f"Formato dati non valido: {e}"
+        ) from e
+    
+def print_products(products: list[dict[str, any]]) -> None:
+    print("*"*30)
+    print("ELENCO PRODOTTI:")
+    print("*"*30)
+    for product in products:
+        print(f"ID: {product['id']}")
+        print(f"Titolo: {product['title']}")
 
+
+def products_model(products: list[dict[str, any]]) -> list[dict[str, any]]:
+    return [product_model_id_titolo(product) for product in products]
     
 def print_prodotto(product: dict[str, any]) -> None:
     print("*"*30)
@@ -101,8 +126,8 @@ def main():
         print(f"❌ Errore imprevisto: {type(e).__name__}: {e}")
 
 
-
-   
+    products_list = products_model(get_data(f"{BASE_URL}"))
+    print_products(products_list)
 
 if __name__ == "__main__":
     main()
