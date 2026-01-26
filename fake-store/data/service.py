@@ -17,7 +17,7 @@ def product_model(product: dict[str, any]) -> dict[str, any]:
         ) from e
     
 def products_model(products: list[dict[str, any]]) -> list[dict[str, any]]:
-    return [product_model_id_titolo(product) for product in products]
+    return [product_model_id_titolo(product) for product in products]  
 
 def product_model_id_titolo(product: dict[str, any]) -> dict[str, any]:
     try:
