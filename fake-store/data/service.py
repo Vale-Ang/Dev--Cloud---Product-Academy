@@ -15,9 +15,11 @@ def product_model(product: dict[str, any]) -> dict[str, any]:
         raise TypeError(
             f"Formato dati non valido: {e}"
         ) from e
-    
-def products_model(products: list[dict[str, any]]) -> list[dict[str, any]]:
-    return [product_model_id_titolo(product) for product in products]  
+
+def products_model(products_list: list[dict[str, any]]) -> list[dict[str, any]]:
+    """Restituisce una lista di prodotti con solo id e titolo."""
+    # return [product_model_id_titolo(product) for product in products]  
+    return [{"id": str(product["id"]), "title": product["title"]} for product in products_list]
 
 def product_model_id_titolo(product: dict[str, any]) -> dict[str, any]:
     try:
@@ -33,3 +35,5 @@ def product_model_id_titolo(product: dict[str, any]) -> dict[str, any]:
         raise TypeError(
             f"Formato dati non valido: {e}"
         ) from e
+    
+   

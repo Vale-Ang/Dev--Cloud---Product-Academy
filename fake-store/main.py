@@ -1,24 +1,35 @@
-from requests.exceptions import ValueError, FileNotFoundError, Exception
-from data.repository import get_data
+# from requests.exceptions import ValueError, FileNotFoundError, Exception
+from data.repository import get_prodotto, get_lista_prodotti, post_data, send_product
 from data.service import product_model, products_model
 from ui.console import print_products, print_prodotto
 from constants import BASE_URL
 
 
+product = {
+  "title": "Shirt",
+  "price": 50,
+  "description": "A description",
+  "categoryId": 1,
+  "images": ["https://placehold.co/600x400"]
+}
+
 def main():
 
     try:
-        id = input("Inserisci l'ID del prodotto da cercare: ").strip()
-        if not id:
-            print("Errore: L'ID non può essere vuoto")
-            return
+        products_list = products_model(get_lista_prodotti(f"{BASE_URL}"))
+        print_products(products_list)
+        print_prodotto(product_model(send_product(BASE_URL, product)))
+        # id = input("Inserisci l'ID del prodotto da cercare: ").strip()
+        # if not id:
+        #     print("Errore: L'ID non può essere vuoto")
+        #     return
         
-        # Validazione che sia un numero
-        if not id.isdigit():
-            print("Errore: L'ID deve essere un numero")
-            return
-        product = product_model(get_data(f"{BASE_URL}/{id}"))
-        print_prodotto(product)
+        # # Validazione che sia un numero
+        # if not id.isdigit():
+        #     print("Errore: L'ID deve essere un numero")
+        #     return
+        # product = product_model(get_prodotto(f"{BASE_URL}/{id}"))
+        # print_prodotto(product)
 
     except ValueError as e:
         print(f"Errore di validazione: {e}")
@@ -55,15 +66,15 @@ def main():
     #     print(f"❌ Errore imprevisto: {type(e).__name__}: {e}")
 
 
-    try:
-        products_list = products_model(get_data(f"{BASE_URL}"))
-        print_products(products_list)
-    except ValueError as e:
-        print(f"Errore di validazione: {e}")
-    except FileNotFoundError as e:
-        print(f"File non trovato: {e}")
-    except Exception as e:
-        print(f"Errore imprevisto: {e}")
+    # try:
+    #     products_list = products_model(get_lista_prodotti(f"{BASE_URL}"))
+    #     print_products(products_list)
+    # except ValueError as e:
+    #     print(f"Errore di validazione: {e}")
+    # except FileNotFoundError as e:
+    #     print(f"File non trovato: {e}")
+    # except Exception as e:
+    #     print(f"Errore imprevisto: {e}")
 
 if __name__ == "__main__":
     main()
