@@ -13,12 +13,41 @@ product = {
   "images": ["https://placehold.co/600x400"]
 }
 
+
 def main():
+
+    while True:
+        titolo = input("Inserisci il titolo del prodotto: ").strip()
+        if titolo is None or titolo == "" or type(titolo) is not str:
+            print("Errore: Il titolo che hai inserito non è valido.")
+            continue
+        else:
+            product["title"] = titolo
+            break
+    while True:
+        prezzo = input("Inserisci il prezzo del prodotto: ").strip()
+        try:
+            prezzo_float = float(prezzo)
+            if prezzo_float <= 0 or prezzo_float is None or type(prezzo_float) is not float:
+                print("Errore: Il prezzo che hai inserito non è valido.")
+                continue
+            product["price"] = prezzo_float
+            break
+        except ValueError:
+            print("Errore: Il prezzo deve essere un numero valido.")
+    while True:
+        descrizione = input("Inserisci la descrizione del prodotto: ").strip()
+        if descrizione is None or descrizione == "" or type(descrizione) is not str:
+            print("Errore: La descrizione che hai inserito non è valida.")
+            continue
+        else:
+            product["description"] = descrizione
+            break
 
     try:
         products_list = products_model(get_lista_prodotti(f"{BASE_URL}"))
         print_products(products_list)
-        print_prodotto(product_model(send_product(BASE_URL, product)))
+        # print_prodotto(product_model(send_product(BASE_URL, product)))
         # id = input("Inserisci l'ID del prodotto da cercare: ").strip()
         # if not id:
         #     print("Errore: L'ID non può essere vuoto")
