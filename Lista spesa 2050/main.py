@@ -6,20 +6,20 @@ def is_carrello_pieno(carrello_della_spesa: list[str], lista_spesa_len: int) -> 
 
 def get_prodotto_formattato(prodotto: str) -> str:
     if not prodotto:
-        log_message("Il prodotto non deve essere vuoto", "ALERT")
+        log_message("Il prodotto non deve essere vuoto", "ERROR")
     
     return prodotto.strip().lower()
 
 def get_input_from_utente(text: str) -> str:
     if not text:
-        log_message("Il messaggio non deve essere vuoto", "ALERT")
+        log_message("Il messaggio non deve essere vuoto", "ERROR")
 
     print("*"*30)
     return input(text)
 
 def log_message(message: str, type: str = "INFO") -> None:
    if not message:
-        log_message("Il messaggio non deve essere vuoto", "ALERT")
+        log_message("Il messaggio non deve essere vuoto", "ERROR")
     
    icon = None
    match type:
@@ -44,7 +44,7 @@ def main() -> None:
     while(is_carrello_pieno(carrello_della_spesa,lista_spesa_len)):
         prodotto: str = get_input_from_utente("inserisci un prodotto: ")
         if not prodotto:
-            log_message("Il prodotto non può essere vuoto")
+            log_message("Il prodotto non può essere vuoto", "ERROR")
 
         prodotto_formattato: str = get_prodotto_formattato(prodotto)
         
