@@ -6,20 +6,21 @@ def is_lista_utente_filled(lista_utente: list[str]) -> bool:
 
 def get_ingredente_formattato(ingrediente: str) -> str:
     if not ingrediente:
-        log_message("Il messaggio non deve essere vuoto", "ALERT")
+        log_message("Il messaggio non deve essere vuoto", "ERROR")
     
     return ingrediente.strip().lower()
 
 def get_input_from_utente(text: str) -> str:
     if not text:
-        log_message("Il messaggio non deve essere vuoto", "ALERT")
+        log_message("Il messaggio non deve essere vuoto", "ERROR")
 
     print("*"*30)
     return input(text)
 
-def log_message(message: str, type: str) -> None:
+
+def log_message(message: str, type: str = "INFO") -> None:
    if not message:
-        log_message("Il messaggio non deve essere vuoto", "ALERT")
+        log_message("Il messaggio non deve essere vuoto", "ERROR")
     
    icon = None
    match type:
@@ -37,23 +38,23 @@ def log_message(message: str, type: str) -> None:
 def main() -> None:
     log_message("Start del programma")
 
-    lista_ricetta: list[str] = ["farina", "acqua", "llievito"]
+    lista_ricetta: list[str] = ["farina", "acqua", "lievito"]
     lista_utente: list[str] = []
 
     while(is_lista_utente_filled(lista_utente)):
         ingrediente: str = get_input_from_utente("inserisci un ingrediente: ")
         if not ingrediente:
-            log_message("L'ingrediente non può essere vuoto")
+            log_message("L'ingrediente non può essere vuoto", "ERROR")
 
         ingrediente_formattato: str = get_ingredente_formattato(ingrediente)
         
         if ingrediente_formattato in lista_ricetta:
 
-           if ingrediente_formattato in lista_utente:
+            if ingrediente_formattato in lista_utente:
                 log_message("Ingrediente già inserito", "ALERT")
             else:
                 lista_utente.append(ingrediente_formattato)
-                print(lista_utente, "INFO")
+                log_message(ingrediente_formattato, "INFO")
             
         else: 
             log_message("Ingrediente non valido", "ALERT")
@@ -66,7 +67,4 @@ main()
     
 
 
-
-
-main()
 
