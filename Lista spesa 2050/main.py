@@ -37,7 +37,7 @@ def log_message(message: str, type: str = "INFO") -> None:
 def main() -> None:
     log_message("Start del programma")
 
-    lista_spesa: list[str] = ["farina", "acqua", "llievito", "pane", "pomodoro", "mozzarella", "sale", "olio", "zucchero", "uova"]
+    lista_spesa: list[str] = ["farina", "acqua", "lievito", "pane", "pomodoro", "mozzarella", "sale", "olio", "zucchero", "uova"]
     carrello_della_spesa: list[str] = []
     lista_spesa_len: int = len(lista_spesa)
 
